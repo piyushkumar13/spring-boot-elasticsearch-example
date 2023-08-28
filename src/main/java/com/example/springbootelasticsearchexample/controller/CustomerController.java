@@ -11,7 +11,7 @@ package com.example.springbootelasticsearchexample.controller;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import com.example.springbootelasticsearchexample.domain.Customer;
-import com.example.springbootelasticsearchexample.repository.CustomerRepoUsingTemplate;
+import com.example.springbootelasticsearchexample.repository.RepoUsingTemplate;
 import com.example.springbootelasticsearchexample.repository.CustomerRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
     private final CustomerRepository customerRepository;
-    private final CustomerRepoUsingTemplate customerRepoUsingTemplate;
+    private final RepoUsingTemplate repoUsingTemplate;
 
     @RequestMapping(path = "/customer", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createCustomer(@RequestBody Customer customer) throws JsonProcessingException {
@@ -119,13 +119,13 @@ public class CustomerController {
     @RequestMapping(path = "/add-customer/{id}/{name}", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
     public void addCustomers(@PathVariable int id, @PathVariable String name){
 
-        customerRepoUsingTemplate.addCustomer(id, name);
+        repoUsingTemplate.addCustomer(id, name);
     }
 
     @RequestMapping(path = "/update-customer/{id}", method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public void addCustomers(@PathVariable int id){
 
-        customerRepoUsingTemplate.updateCustomer(id);
+        repoUsingTemplate.updateCustomer(id);
     }
 
     @RequestMapping(path = "/search-customers", method = RequestMethod.GET)
@@ -139,12 +139,12 @@ public class CustomerController {
 //        return customerRepoUsingTemplate.searchWithMatchPhrasePrefix();
 //        return customerRepoUsingTemplate.searchWithQueryPrefix();
 //        return customerRepoUsingTemplate.searchWithWildCardQuery();
-        return customerRepoUsingTemplate.searchWithBoolQuery();
+        return repoUsingTemplate.searchWithBoolQuery();
     }
 
     @RequestMapping(path = "/update-customer-by-query", method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
     public void updateCustomersByQuery(){
 
-        customerRepoUsingTemplate.updateCustomerByQuery();
+        repoUsingTemplate.updateCustomerByQuery();
     }
 }

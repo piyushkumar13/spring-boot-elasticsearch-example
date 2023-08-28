@@ -45,7 +45,7 @@ import org.springframework.stereotype.Repository;
 
 @Data
 @Repository
-public class CustomerRepoUsingTemplate {
+public class RepoUsingTemplate {
 
     private static final String CUSTOMER_IDX = "customer-idx";
 

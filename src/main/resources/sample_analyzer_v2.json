@@ -1,0 +1,18 @@
+{
+  "analysis": {
+    "analyzer": {
+      "my_custom_analyzer_v2": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "char_filter": [
+          "html_strip"
+        ],
+        "filter": [
+          "lowercase",
+          "asciifolding",
+          "stop"
+        ]
+      }
+    }
+  }
+}

@@ -45,14 +45,16 @@ import org.springframework.data.elasticsearch.annotations.Setting;
  * @since 28/08/23.
  */
 
+/**
+ * This student5 index was created first in elasticsearch and then it is mapped to below spring boot class.
+ * */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "student2")
-@TypeAlias("student2")
-@Setting(settingPath = "sample_analyzer.json")
-public class Student2 {
+@Document(indexName = "student5")
+@TypeAlias("student5")
+public class Student5 {
 
     @Id
     private int id;
@@ -60,9 +62,7 @@ public class Student2 {
     @Field(name = "studentName", type = FieldType.Text)
     private String name;
 
-    // Use LocalDate. Why? coz https://stackoverflow.com/a/70844241 - when using java.util.Date - it was able to save the document but when fetching it was giving conversion error.
-    // With following java.util.Date, we will not get any issue while persisting but will give error while fetching.
-    @Field(type = FieldType.Date, format = DateFormat.date)
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute)
     private Date dob;
 
     @Field(type = FieldType.Keyword)
@@ -70,25 +70,25 @@ public class Student2 {
 
     @MultiField(mainField = @Field(type = FieldType.Text),
     otherFields = {
-        @InnerField(suffix = "keywsuffix", type = FieldType.Keyword) // usually, suffix name used normally is keyword.
+        @InnerField(suffix = "keyword", type = FieldType.Keyword) // usually, suffix name used normally is keyword.
     })
     private String course;
 
     @Field(type = FieldType.Text)
     private String college;
 
-    @Field(type = FieldType.Date, format = DateFormat.date_time)
-    private Date collegeStartDate;
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute)
+        private Date collegeStartDate;
 
-    @Field(type = FieldType.Date, format = DateFormat.date_hour)
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute)
     private Date examDate;
 
-    @Field(type = FieldType.Date, format = DateFormat.date_hour)
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute)
     private Date examEndDate;
 
-    @Field(type = FieldType.Date, format = DateFormat.date)
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute)
     private Date collegeEndDate;
 
-    @Field(type = FieldType.Text, analyzer = "my_custom_analyzer")
+    @Field(type = FieldType.Text)
     private String mainSubject;
 }

@@ -9,6 +9,8 @@
 package com.example.springbootelasticsearchexample.repository;
 
 import com.example.springbootelasticsearchexample.domain.Customer;
+import java.util.List;
+import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**
@@ -26,4 +28,7 @@ public interface CustomerRepository extends ElasticsearchRepository<Customer, In
     Customer findByNameAndGenderAndDob(String name, String gender, String dob);
 
     Customer findByNameAndAddressCity(String name, String city);
+
+    @Query("{\"match\":{\"address.state\":\"?0\"}}")
+    List<Customer> findByState(String state);
 }

@@ -110,6 +110,12 @@ public class CustomerController {
         System.out.println("findByNameAndAddressCityCustomer ::: " + findByNameAndGenderAndDobCustomer);
         System.out.println("============================================================================================================");
 
+
+        System.out.println("============================================================================================================");
+        List<Customer> findByStateCustomer = customerRepository.findByState("Delhi");
+        System.out.println("findByStateCustomer ::: " + findByStateCustomer);
+        System.out.println("============================================================================================================");
+
     }
 
 
@@ -146,5 +152,13 @@ public class CustomerController {
     public void updateCustomersByQuery(){
 
         repoUsingTemplate.updateCustomerByQuery();
+    }
+
+    @RequestMapping(path = "/aggregations", method = RequestMethod.GET)
+    public void performAggregations(){
+
+//        repoUsingTemplate.performSumAggregations();
+//        repoUsingTemplate.performBucketAggregations();
+        repoUsingTemplate.performBucketAggregationsWithNestedAggregation();
     }
 }

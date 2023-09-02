@@ -10,14 +10,15 @@ package com.example.springbootelasticsearchexample.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import com.example.springbootelasticsearchexample.domain.Customer;
 import com.example.springbootelasticsearchexample.domain.Student;
-import com.example.springbootelasticsearchexample.repository.CustomerRepository;
+import com.example.springbootelasticsearchexample.domain.Student6;
 import com.example.springbootelasticsearchexample.repository.RepoUsingTemplate;
+import com.example.springbootelasticsearchexample.repository.Student6Repository;
 import com.example.springbootelasticsearchexample.repository.StudentRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
 
     private final StudentRepository studentRepository;
+    private final Student6Repository student6Repository;
     private final RepoUsingTemplate repoUsingTemplate;
 
     @RequestMapping(path = "/student", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -55,5 +57,26 @@ public class StudentController {
         studentRepository.save(student);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @RequestMapping(path = "/students", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Student>> getStudents() throws JsonProcessingException {
+
+
+        List<Student> students = new ArrayList<>();
+        studentRepository.findAll().forEach(student -> students.add(student));
+
+        return ResponseEntity.status(HttpStatus.OK).body(students);
+    }
+
+
+    @RequestMapping(path = "/student6", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Student6>> getStudent6() throws JsonProcessingException {
+
+
+        List<Student6> student6s = new ArrayList<>();
+        student6Repository.findAll().forEach(student6 -> student6s.add(student6));
+
+        return ResponseEntity.status(HttpStatus.OK).body(student6s);
     }
 }
